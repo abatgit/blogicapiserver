@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buyer Form</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <style>
+    .form-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    .form-section h5 {
+      margin-bottom: 20px;
+    }
+    .remove-co-btn {
+      margin-top: 32px;
+    }
+    label {
+      font-weight: bold;
+      font-size: 12px;
+    }
+    pre#jsonPreview {
+      white-space: pre-wrap;
+      background:#f7f7f7;
+      padding:12px;
+      border-radius:6px;
+      border:1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+<div class="container my-5">
+  <h2 class="mb-4">Buyer Form</h2>
+  <form id="buyerForm">
+    <!-- Purchaser Section -->
+    <div class="form-section">
+      <h5>Purchaser Details</h5>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Purchaser Name from APS</label>
+          <input type="text" class="form-control" name="PURCHASER_NAME_FROM_APS" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser Name from ID</label>
+          <input type="text" class="form-control" name="PURCHASER_NAME_FROM_ID" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser Name from Housesigma</label>
+          <input type="text" class="form-control" name="PURCHASER_NAME_FROM_HOUSESIGMA" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser Address from APS</label>
+          <input type="text" class="form-control" name="PURCHASER_ADDRESS_FROM_APS" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser Address from ID</label>
+          <input type="text" class="form-control" name="PURCHASER_ADDRESS_FROM_ID" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser Address List from Landregistry</label>
+          <input type="text" class="form-control" name="PURCHASER_ADDRESS_LIST_FROM_LANDREGISTRY[]" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser Age from ID</label>
+          <input type="number" class="form-control" name="PURCHASER_AGE_FROM_ID" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser All Properties Purchase Price from Landregistry</label>
+          <input type="number" class="form-control" name="PURCHASER_ALL_PROPERTIES_PURCHASE_PRICE_FROM_LANDREGISTRY[]" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser All Properties Value from AVM</label>
+          <input type="number" class="form-control" name="PURCHASER_ALL_PROPERTIES_VALUE_FROM_AVM[]" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser All Properties Total Debt from Purview</label>
+          <input type="number" class="form-control" name="PURCHASER_ALL_PROPERTIES_TOTAL_DEBT_FROM_PURVIEW[]" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser All Properties Equity</label>
+          <input type="number" class="form-control" name="PURCHASER_ALL_PROPERTIES_EQUITY[]" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser Deposit Paid from APS</label>
+          <input type="number" class="form-control" name="PURCHASER_DEPOSIT_PAID_FROM_APS" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser ID Issue Date</label>
+          <input type="date" class="form-control" name="PURCHASER_ID_ISSUE_DATE" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Purchaser Driver License Type</label>
+          <input type="text" class="form-control" name="PURCHASER_DRIVER_LICENSE_TYPE" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Co-Signer Section -->
+    <div class="form-section">
+      <h5>Co Signer List from APS</h5>
+      <div id="coSignerContainer"></div>
+      <button type="button" class="btn btn-secondary" id="addCoSignerBtn">Add Co-Signer</button>
+    </div>
+
+    <!-- Property Details -->
+    <div class="form-section">
+      <h5>Property Details</h5>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>Distance</label>
+          <input type="number" class="form-control" name="DISTANCE" />
+        </div>
+        <div class="form-group col-md-4">
+          <label>Primary Residence Purchase Price from Landregistry</label>
+          <input type="number" class="form-control" name="PRIMARY_RESIDENCE_PURCHASE_PRICE_FROM_LANDREGISTRY" />
+        </div>
+        <div class="form-group col-md-4">
+          <label>Primary Residence Value from AVM</label>
+          <input type="number" class="form-control" name="PRIMARY_RESIDENCE_VALUE_FROM_AVM" />
+        </div>
+        <div class="form-group col-md-4">
+          <label>Primary Residence Total Debt from Purview</label>
+          <input type="number" class="form-control" name="PRIMARY_RESIDENCE_TOTAL_DEBT_FROM_PURVIEW" />
+        </div>
+        <div class="form-group col-md-4">
+          <label>Primary Residence Equity</label>
+          <input type="number" class="form-control" name="PRIMARY_RESIDENCE_EQUITY" />
+        </div>
+        <div class="form-group col-md-4">
+          <label>Primary Residence Title Names</label>
+          <input type="text" class="form-control" name="PRIMARY_RESIDENCE_TITLE_NAMES[]" />
+        </div>
+        <div class="form-group col-md-4">
+          <label>Property Price</label>
+          <input type="number" class="form-control" name="PROPERTY_PRICE" />
+        </div>
+        <div class="form-group col-md-4">
+          <label>Other Deposit Paid Name List from APS</label>
+          <input type="text" class="form-control" name="OTHER_DEPOSIT_PAID_NAME_LIST_FROM_APS[]" />
+        </div>
+        <div class="form-group col-md-4">
+          <label>Mortgage Approval</label>
+          <select class="form-control" name="MORTGAGE_APPROVAL">
+            <option value="">-- select --</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Mortgage Approval Names</label>
+          <input type="text" class="form-control" name="MORTGAGE_APPROVAL_NAMES[]" />
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <h5 class="mt-4">Final JSON</h5>
+  <details class="border p-2 rounded">
+    <summary class="font-weight-bold">Show JSON</summary>
+    <pre id="jsonPreview" class="mt-2">{ }</pre>
+  </details>
+
+  <h5 class="mt-4">API RESPONSE</h5>
+  <details class="border p-2 rounded">
+    <summary class="font-weight-bold">Show Response</summary>
+    <div class="mt-2" id="results-container"></div>
+  </details>
+  <h5 class="mt-4">Error Display</h5>
+  <div id="error-display" class="text-danger mt-2"></div>
+  <div id="error-message" class="text-danger mt-2"></div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+/*
+  Full form -> JSON serializer
+  - Handles bracket notation including: field[], field[0][name], field[name][sub][] etc.
+  - Converts numeric-looking strings to numbers, "true"/"false" to booleans.
+  - Keeps repeated scalar fields as arrays.
+*/
+
+let coSignerIndex = 0;
+
+function makeCoSignerHtml(idx) {
+  return `
+    <div class="co-signer-group row" data-index="${idx}">
+      <div class="form-group col-md-4">
+        <label>Co Signer Name from APS</label>
+        <input type="text" class="form-control" name="CO_SIGNER_LIST_FROM_APS[${idx}][CO_SIGNER_NAME_FROM_APS]" />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Co Signer Name from ID</label>
+        <input type="text" class="form-control" name="CO_SIGNER_LIST_FROM_APS[${idx}][CO_SIGNER_NAME_FROM_ID]" />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Co Signer Address from APS</label>
+        <input type="text" class="form-control" name="CO_SIGNER_LIST_FROM_APS[${idx}][CO_SIGNER_ADDRESS_FROM_APS]" />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Co Signer Address List from Landregistry</label>
+        <input type="text" class="form-control" name="CO_SIGNER_LIST_FROM_APS[${idx}][CO_SIGNER_ADDRESS_LIST_FROM_LANDREGISTRY][]" />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Co Signer All Properties Purchase Price from Landregistry</label>
+        <input type="number" class="form-control" name="CO_SIGNER_LIST_FROM_APS[${idx}][CO_SIGNER_ALL_PROPERTIES_PURCHASE_PRICE_FROM_LANDREGISTRY][]" />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Co Signer All Properties Value from AVM</label>
+        <input type="number" class="form-control" name="CO_SIGNER_LIST_FROM_APS[${idx}][CO_SIGNER_ALL_PROPERTIES_VALUE_FROM_AVM][]" />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Co Signer All Properties Total Debt from Purview</label>
+        <input type="number" class="form-control" name="CO_SIGNER_LIST_FROM_APS[${idx}][CO_SIGNER_ALL_PROPERTIES_TOTAL_DEBT_FROM_PURVIEW][]" />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Co Signer All Properties Equity</label>
+        <input type="number" class="form-control" name="CO_SIGNER_LIST_FROM_APS[${idx}][CO_SIGNER_ALL_PROPERTIES_EQUITY][]" />
+      </div>
+      <div class="form-group col-md-4 remove-co-btn">
+        <button type="button" class="btn btn-danger remove-co-btn-el">Remove</button>
+      </div>
+    </div>
+  `;
+}
+
+function addCoSigner() {
+  $('#coSignerContainer').append(makeCoSignerHtml(coSignerIndex));
+  coSignerIndex++;
+  updateRemoveButtons();
+}
+
+function updateRemoveButtons() {
+  // attach event to newly added remove buttons
+  $('.remove-co-btn-el').off('click').on('click', function() {
+    const group = $(this).closest('.co-signer-group');
+    const idx = Number(group.attr('data-index'));
+    removeCoSigner(idx);
+  });
+}
+
+function removeCoSigner(indexToRemove) {
+  const groups = $('.co-signer-group');
+  if (groups.length > 1) {
+    $(`.co-signer-group[data-index="${indexToRemove}"]`).remove();
+
+    // reindex remaining groups and update input names to new indexes
+    $('#coSignerContainer .co-signer-group').each(function (newIndex) {
+      const oldIndex = $(this).attr('data-index');
+      $(this).attr('data-index', newIndex);
+
+      // update all input/select/textarea name attributes inside this co-signer block
+      $(this).find('input[name], select[name], textarea[name]').each(function () {
+        const name = $(this).attr('name');
+        if (!name) return;
+        const updatedName = name.replace(/CO_SIGNER_LIST_FROM_APS\[\d+\]/g, `CO_SIGNER_LIST_FROM_APS[${newIndex}]`);
+        $(this).attr('name', updatedName);
+      });
+    });
+
+    coSignerIndex = $('#coSignerContainer .co-signer-group').length;
+    updateRemoveButtons();
+  } else {
+    alert("At least one co-signer is required.");
+  }
+}
+
+function cleanEmptyArraysAndObjects(obj) {
+  if (Array.isArray(obj)) {
+    // Clean each item in the array
+    obj = obj.map(item => cleanEmptyArraysAndObjects(item));
+
+    // If all items are empty objects, return []
+    if (obj.every(item => 
+      typeof item === 'object' &&
+      item !== null &&
+      !Array.isArray(item) &&
+      Object.values(item).every(v => 
+        v === '' || v === null || v === undefined || 
+        (Array.isArray(v) && v.length === 0)
+      )
+    )) {
+      return [];
+    }
+
+    return obj;
+  } 
+  else if (typeof obj === 'object' && obj !== null) {
+    for (const key in obj) {
+      obj[key] = cleanEmptyArraysAndObjects(obj[key]);
+    }
+  }
+  return obj;
+}
+
+
+function parseFormToJson(form) {
+  const formData = $(form).serializeArray();
+  const json = {};
+
+  formData.forEach(item => {
+  const keys = item.name.replace(/\]/g, '').split(/\[/).filter(Boolean);
+  let current = json;
+
+  keys.forEach((key, idx) => {
+    const isLast = idx === keys.length - 1;
+    const isArrayField = /\[\]$/.test(item.name) || Array.isArray(current[key]);
+
+    // Convert value type
+    let value = item.value.trim();
+
+    // If array field and empty -> []
+    if (isArrayField && value === '') {
+      value = [];
+    }
+    // If contains commas -> split into array
+    else if (value.includes(',')) {
+      value = value.split(',').map(v => v.trim()).filter(v => v !== '');
+    }
+
+    // Type conversion for non-array strings
+    if (!Array.isArray(value)) {
+      if (!isNaN(value) && value !== '') value = Number(value);
+      if (value === 'true') value = true;
+      if (value === 'false') value = false;
+    }
+
+    if (isLast) {
+      if (isArrayField || Array.isArray(value)) {
+        if (!Array.isArray(current[key])) current[key] = [];
+        if (Array.isArray(value)) {
+          current[key].push(...value);
+        } else {
+          current[key].push(value);
+        }
+      } else if (current[key] !== undefined) {
+        current[key] = [].concat(current[key], value);
+      } else {
+        current[key] = value;
+      }
+    } else {
+      if (!current[key]) {
+        current[key] = /^\d+$/.test(keys[idx + 1]) ? [] : {};
+      }
+      current = current[key];
+    }
+  });
+});
+
+
+  return json;
+}
+
+// -- event wiring --
+$(document).ready(() => {
+  // Start with one co-signer
+  addCoSigner();
+
+  $('#addCoSignerBtn').on('click', addCoSigner);
+
+  $('#buyerForm').on('submit', function(e) {
+    e.preventDefault();
+    const json1 = parseFormToJson(this);
+    const json = cleanEmptyArraysAndObjects(json1);
+
+    $('#jsonPreview').text(JSON.stringify(json, null, 2));
+    console.log('Final JSON:', JSON.stringify(json, null, 2));
+
+    fetch('http://127.0.0.1:8000/assess-risk', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(json),
+    mode: 'cors'
+  })
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    })
+
+    .then(data => {
+      if (data.success) {
+        const assessment = data.risk_assessment;
+        
+        // Display results in a formatted way
+        const resultsHTML = `
+          <div class="result-card">
+            <h2>Risk Assessment Result</h2>
+            <div class="risk-level ${assessment.risk_level.toLowerCase().replace(' ', '-')}">
+              Risk Level: <strong>${assessment.risk_level}</strong>
+            </div>
+            
+            <div class="result-section">
+              <h3>Key Factors</h3>
+              <ul>
+                ${assessment.risk_factors.map(f => `<li>${f}</li>`).join('')}
+              </ul>
+            </div>
+            
+            <div class="result-section">
+              <h3>Reasons</h3>
+              <ul>
+                ${assessment.reasons.map(r => `<li>${r}</li>`).join('')}
+              </ul>
+            </div>
+            
+            <div class="result-section">
+              <h3>Recommended Actions</h3>
+              <ul>
+                ${assessment.suggested_actions.map(a => `<li>${a}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        `;
+        
+        document.getElementById('results-container').innerHTML = resultsHTML;
+      } else {
+        document.getElementById('error-display').textContent = 
+          `Error: ${data.error || 'Unknown error occurred'}`;
+      }
+    })    
+ 
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('error-message').textContent = error.message;
+    });
+
+    
+  });
+});
+</script>
+</body>
+</html>
