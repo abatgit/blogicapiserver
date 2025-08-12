@@ -13,19 +13,37 @@ app = FastAPI()
 
 origins = [
     "http://localhost",
-    "http://localhost:8080",  # Add your frontend's origin
+    "http://localhost:8080",
     "http://127.0.0.1",
-    "http://127.0.0.1:8080",  # Add your frontend's origin
-    "http://0.0.0.0:8000",  # Add your frontend's origin
+    "http://127.0.0.1:8080",
+    "http://0.0.0.0:8000",
+    "https://blogic-0d9z.onrender.com/"
 ]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins for development
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+# app = FastAPI()
+
+# origins = [
+#     "http://localhost",
+#     "http://localhost:8080",  # Add your frontend's origin
+#     "http://127.0.0.1",
+#     "http://127.0.0.1:8080",  # Add your frontend's origin
+#     "http://0.0.0.0:8000",  # Add your frontend's origin
+# ]
+
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],  # Allows all origins for development
+#     allow_credentials=True,
+#     allow_methods=["*"],  # Allows all methods
+#     allow_headers=["*"],  # Allows all headers
+# )
 
 # Models 
 class CoSigner(BaseModel):
